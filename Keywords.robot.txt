@@ -1,0 +1,25 @@
+*** Keywords ***
+Open Browser To Welcome Page 
+	Open Browser 	${URL}  ${BROWSER} 
+	Maximize Browser Window 
+	Set Selenium Speed   ${BROWSER_DELAY} 
+	Welcome Page Should Be Open 
+
+Welcome Page Should Be Open 
+	Title Should Be	"Welcome to Dexcom CLARITY, your diabetes management application."
+
+Go To Dexcom Clarity Login Page 
+	#Click Link xpath=//a[href@="http://www.dexcom.com/"]
+	Click Element  href=/users/auth/dexcom_sts
+           
+Input Username 
+	Input Text  username  ${username} 
+
+Input Password 
+	Input Text  password  ${password}
+
+Submit Credentials
+	Wait For Condition  {return (document.getElementById(//*[@id="edit-actions"]/input).disabled == false);} 
+	#Focus 	op
+	sleep  5s
+	Click Element       //*[contains(text(),'Login')]

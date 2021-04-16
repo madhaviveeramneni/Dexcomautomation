@@ -1,0 +1,28 @@
+*** Settings ***
+Library RequestsLibrary
+Library Collections
+Library HttpLibrary.HTTP
+Library Json
+Resource ../variables.robot
+Suite Teardown Close Session
+
+
+*** Test Cases ***
+#Session Creation
+  ${auth}=  Create List  ${username}  ${password}
+  Create Session alias=Login  ${Base URL} headers=${headers}  auth=${auth}
+  #${response}= get request Login
+
+#Get token
+  [Arguments]  ${Session_id}
+  &{headers}=  create dictionary Content-Type=application/json
+  ${response}= Post Request  ${Session_id}  ${Base URL}  data=${auth}  headers=  ${headers}
+  [Return]  ${response.json()['token']}
+
+#Analysis SessionID
+  ${body}=create Dictionary  SessionID=1681277794575765504
+  ${response}= Post Request Login /api/subject/1681277794575765504/analysis_session   data=${body}
+  should be equal as integers  ${response.status_code}  200
+  log to console ${response.status_code}
+  log to console ${response.content}
+  Close Session
