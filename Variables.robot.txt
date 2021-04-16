@@ -6,4 +6,5 @@ ${password}	Password123
 ${BROWSER_DELAY} 20
 ${base_url} https://clarity.dexcom.com/
 ${timeout} 1s
-${headers}  Content-Type=application/json  Authorization=Basic	            
+${headers}  Content-Type=application/json Authorization=Basic	
+           

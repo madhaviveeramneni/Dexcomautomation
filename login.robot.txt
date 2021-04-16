@@ -1,0 +1,18 @@
+*** Settings ***
+Library  Selenium2Library
+Resource ../Resources/variables.robot
+Resource ../Resources/Keywords.robot
+Test Teardown     Close Application
+
+*** Test Cases ***
+ 
+Login to Dexcom Clarity Home Page
+	Open Browser To Welcome Page
+	Go To Dexcom Clarity Login Page
+    	Wait Until Element Is Visible  username
+    	Wait Until Element Is Visible  password
+    	Input Username
+    	Input Password 
+    	Submit Credentials
+    	Set Selenium Implicit Wait  5s
+	
